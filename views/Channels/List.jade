@@ -1,0 +1,10 @@
+//
+   Created by Pierre on 04/12/2017.
+extends ../layout
+
+block content
+    div Salut ca marche
+    ul
+        each chan in channels
+            li
+a(href="channels/#{chan._id}") #{chan.title}

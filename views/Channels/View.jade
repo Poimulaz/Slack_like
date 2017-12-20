@@ -1,0 +1,10 @@
+//
+   Created by Pierre on 04/12/2017.
+
+extends ../layout
+
+block content
+    h1= channel.title
+    h3
+        | Posted on #{channel.date} by #{channel.author}
+p= channel.content
