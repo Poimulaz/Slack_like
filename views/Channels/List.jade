@@ -5,6 +5,19 @@ extends ../layout
 block content
     div Salut ca marche
     ul
-        each chan in channels
-            li
-a(href="channels/#{chan._id}") #{chan.title}
+        if channels
+            each chan in channels
+                li
+                    a(href="channels/#{chan._id}") #{chan.name}
+
+    form(method="POST")
+        .form-group
+            label(for="contentInput") Name of Channel
+            input#contentInput(name="name")
+        .form-group
+            label(for="selectInput") Portée
+            select#selectInput
+                option(value='publique', selected='') Publique
+                option(value='privée') Privée
+                //option(value='extension') Extension
+        input(type="submit", value="Envoyé")

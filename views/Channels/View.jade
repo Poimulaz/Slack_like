@@ -4,7 +4,18 @@
 extends ../layout
 
 block content
-    h1= channel.title
-    h3
-        | Posted on #{channel.date} by #{channel.author}
-p= channel.content
+    h1= channel.name
+
+    each message in channel.message
+        div
+                | #{message.content}
+            b by #{message.author} on #{message.date}
+        br
+        br
+
+    ul
+        form(method="POST")
+            .form-group
+                label(for="contentInput") Content
+                textarea#contentInput(name="content")
+            input(type="submit", value="Envoyé")

@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var User = mongoose.model('User');
 
 var ChannelSchema = new Schema({
+    name : String,
     users : [{
         user : {type: mongoose.Schema.Types.ObjectId, ref: "User"},
         rights : Boolean,
@@ -20,7 +21,8 @@ var ChannelSchema = new Schema({
         published : String,
         //user : {type: mongoose.Schema.Types.ObjectId, ref: "User"},
         emot : [String]
-    }]
+    }],
+    master : {type: mongoose.Schema.Types.ObjectId, ref: "User"}
 });
 
 var Channel = mongoose.model('Channel', ChannelSchema);

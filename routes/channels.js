@@ -10,7 +10,7 @@ var Channel = mongoose.model('Channel');
 //affiche les channels
 router.get('/', function(req, res, next) {
     Channel.find({},function(err,items){
-        res.render('Channels/List', { channels: items });
+        res.render('channels/List', { channels: items });
     });
 });
 
@@ -21,9 +21,25 @@ router.get('/:id', function(req, res, next){
     });
 });
 
-//post un commentaire
-router.post('/:id', function(req, res, next){
+//crée un channel
+router.post('/', function(req, res, next){
+    var channel = new Channel();
+    channel.name = req.body.name;
+    channel.master = req.user;
 
+    Channel.create(channel, function(err, item) {
+        res.redirect("/channels");
+    });
+});
+
+router.post('/:id', function(req, res, next){
+    Channel.findById({_id : req.params.id}, function(err, item){
+        item.message.push({content : req.body.content,author : req.user,date : new Date(),published : true});
+        item.save(function(err, item) {
+            console.log(err);
+        });
+        res.redirect("/channels/" + item.id);
+    });
 });
 
 module.exports = router;
